@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AETHERIA - Dünyanın en büyüleyici seyahat rotalarını keşfedin. Canlı görseller, vize ve giriş şartları, sesli telaffuz rehberi, bütçe hesaplayıcı ve kişisel gezi planlayıcı.">
+  <meta name="theme-color" content="#ffffff">
+  <title>AETHERIA | Yeni Nesil Küresel Seyahat & Vize Rehberi</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Ana Stil Dosyası -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Erişilebilirlik için Doğrudan İçeriğe Geç Bağlantısı -->
+  <a href="#main-content" class="skip-link">Ana İçeriğe Atla</a>
+
+  <!-- Üst Gezinme Çubuğu (Header) -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" aria-label="AETHERIA Anasayfa">
+        <span class="brand-icon">✈️</span>
+        <span class="brand-title">AETHERIA <span class="accent-span">Travel</span> <span class="brand-tag">Global</span></span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Kullanıcı Menüsü">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Tema Değiştir" title="Açık/Koyu Tema">
+          <span id="theme-icon">☀️</span>
+          <span id="theme-label">Açık Tema</span>
+        </button>
+
+        <button id="open-itinerary-btn" class="itinerary-btn" aria-label="Gezi Planını Aç">
+          <span>🎒 Gezi Planım</span>
+          <span id="itinerary-count" class="itinerary-badge">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Karşılama (Hero) & Canlı Arama Bölümü -->
+  <section class="hero-section" aria-label="Arama ve Keşif">
+    <div class="hero-pill">
+      <span class="hero-pill-pulse" aria-hidden="true"></span>
+      <span>Akıllı Dünya Seyahat & Vize Platformu</span>
+    </div>
+
+    <h1 class="hero-title">
+      Dünyanın En Büyüleyici <span class="gradient-text">Rotalarını Keşfedin</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Türkiye'den seyahat için güncel vize gereksinimleri, yüksek çözünürlüklü fotoğraf galerileri, yerel lezzetler ve interaktif bütçe hesaplayıcı tek platformda.
+    </p>
+
+    <!-- Canlı Arama Çubuğu -->
+    <div class="search-wrapper">
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Ülke, şehir, vize durumu veya deneyim arayın (örn. Vizesiz, İtalya, Japonya, Alpler)..." 
+          autocomplete="off" 
+          aria-label="Ülke veya rota ara"
+          aria-autocomplete="list"
+          aria-controls="autocomplete-dropdown"
+        >
+        <button id="search-clear-btn" class="search-clear-btn" aria-label="Aramayı temizle">✕</button>
+      </div>
+
+      <div id="autocomplete-dropdown" class="autocomplete-dropdown" role="listbox" aria-label="Arama önerileri"></div>
+    </div>
+
+    <!-- Popüler Hızlı Arama Butonları -->
+    <div class="recent-searches" aria-label="Popüler Aramalar">
+      <span style="font-weight: 700;">Hızlı Filtre:</span>
+      <button class="recent-search-pill" data-search="Vizesiz">🟢 Vizesiz Ülkeler</button>
+      <button class="recent-search-pill" data-search="İtalya">🇮🇹 İtalya</button>
+      <button class="recent-search-pill" data-search="Japonya">🇯🇵 Japonya</button>
+      <button class="recent-search-pill" data-search="İsviçre">🇨🇭 İsviçre</button>
+      <button class="recent-search-pill" data-search="Gastronomi">🍜 Gurme & Lezzet</button>
+      <button class="recent-search-pill" data-search="Kutup">🌌 Kutup Işıkları</button>
+    </div>
+  </section>
+
+  <!-- Filtreler & Sıralama Kontrolleri -->
+  <section class="controls-container" aria-label="Filtreleme ve Sıralama">
+    <div class="controls-card">
+      <!-- Kıta Sekmeleri -->
+      <div class="continent-tabs" id="continent-tabs" role="tablist" aria-label="Kıtaya göre filtrele">
+        <!-- JS ile dinamik oluşturulur -->
+      </div>
+
+      <!-- Kategori, Bütçe & Sıralama Çubuğu -->
+      <div class="secondary-filters">
+        <div class="tags-scroll-container" id="tag-chips-container" aria-label="Seyahat temasına göre filtrele">
+          <!-- JS ile dinamik oluşturulur -->
+        </div>
+
+        <div class="filter-actions">
+          <div class="budget-filter-wrap">
+            <label for="budget-range">Maks. Günlük:</label>
+            <input type="range" id="budget-range" class="budget-range-input" min="30" max="600" step="10" value="600" aria-label="Maksimum günlük bütçe">
+            <span id="budget-display" class="budget-display-val">$600</span>
+          </div>
+
+          <label for="sort-select" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Sıralama Seçimi</label>
+          <select id="sort-select" class="sort-select" aria-label="Ülkeleri sırala">
+            <option value="featured">✨ Editörün Seçtikleri</option>
+            <option value="rating-desc">⭐ En Yüksek Puanlılar</option>
+            <option value="budget-asc">💰 Bütçe: Düşükten Yükseğe</option>
+            <option value="budget-desc">💎 Lüks: Yüksekten Düşüğe</option>
+            <option value="name-asc">🔤 Alfabetik (A-Z)</option>
+          </select>
+
+          <span id="results-count" class="results-counter" aria-live="polite">10 rota listeleniyor</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ana Rota Kartları Izgarası (Grid) -->
+  <main id="main-content" class="main-content">
+    <div id="destinations-grid" class="destinations-grid" role="region" aria-live="polite" aria-label="Ülke ve Şehir Listesi">
+      <!-- Rota kartları app.js tarafından buraya yerleştirilir -->
+    </div>
+  </main>
+
+  <!-- Zengin Ülke Detay Modalı (Görsel Galeri, Vize Bilgileri, Sekmeler, Ses ve Hesaplayıcı) -->
+  <div id="dest-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-dialog" id="modal-dialog">
+      <!-- Modal Üst Görsel Başlığı -->
+      <div class="modal-header-banner">
+        <img id="modal-hero-img" class="modal-hero-img" src="" alt="Ülke manzarası">
+        <div class="modal-banner-gradient"></div>
+        <button id="modal-close-btn" class="modal-close-btn" aria-label="Pencereyi kapat">✕</button>
+        <div class="modal-header-meta">
+          <div class="modal-title-row">
+            <h2 id="modal-title" class="modal-title">İtalya (Amalfi & Roma)</h2>
+            <span id="modal-flag" style="font-size: 2.2rem;">🇮🇹</span>
+          </div>
+          <p id="modal-tagline" class="modal-subtext">Güneşin Parladığı Pastel Uçurumlar & La Dolce Vita</p>
+        </div>
+      </div>
+
+      <!-- Fotoğraf Galerisi Şeridi -->
+      <div id="modal-gallery-strip" class="modal-gallery-strip" aria-label="Ülke Fotoğraf Galerisi">
+        <!-- Küçük resimler JS ile eklenir -->
+      </div>
+
+      <!-- Modal Sekmeleri (Yükseklik Sabitlenmiş, Asla Kesilmez) -->
+      <nav class="modal-tabs" role="tablist" aria-label="Detay sekmeleri">
+        <button class="modal-tab-btn active" data-tab="tab-overview" role="tab" aria-selected="true">📋 Genel Bakış</button>
+        <button class="modal-tab-btn" data-tab="tab-visa" role="tab" aria-selected="false">🛂 Vize & Giriş Şartları</button>
+        <button class="modal-tab-btn" data-tab="tab-attractions" role="tab" aria-selected="false">🏛️ Gezilecek Yerler</button>
+        <button class="modal-tab-btn" data-tab="tab-cuisine" role="tab" aria-selected="false">🍱 Yöresel Lezzetler</button>
+        <button class="modal-tab-btn" data-tab="tab-phrasebook" role="tab" aria-selected="false">🗣️ Sesli Sözlük</button>
+        <button class="modal-tab-btn" data-tab="tab-packing" role="tab" aria-selected="false">🧳 Bavul Listesi</button>
+        <button class="modal-tab-btn" data-tab="tab-calculator" role="tab" aria-selected="false">🧮 Bütçe Hesaplayıcı</button>
+      </nav>
+
+      <!-- Modal İçerik Gövdesi (Sadece Bu Alan Kaydırılır) -->
+      <div class="modal-body">
+        <!-- Sekme 1: Genel Bakış -->
+        <div id="tab-overview" class="tab-pane active" role="tabpanel">
+          <div class="overview-stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">En Uygun Mevsim</div>
+              <div id="modal-stat-season" class="stat-value">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">İklim Türü</div>
+              <div id="modal-stat-climate" class="stat-value">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Para Birimi</div>
+              <div id="modal-stat-currency" class="stat-value">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Resmi Dil</div>
+              <div id="modal-stat-language" class="stat-value">-</div>
+            </div>
+          </div>
+
+          <h3 class="section-heading">📖 Rota Deneyimi</h3>
+          <p id="modal-full-desc" style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 22px; font-size: 0.98rem;">-</p>
+
+          <h3 class="section-heading">🌟 Öne Çıkan Keşif Noktaları</h3>
+          <ul id="modal-highlights-list" style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 22px;"></ul>
+
+          <h3 class="section-heading">💡 Yerel Kültür & Seyahat İpuçları</h3>
+          <ul id="modal-culture-tips" style="padding-left: 20px; color: var(--text-secondary); line-height: 1.8;"></ul>
+        </div>
+
+        <!-- Sekme 2: Vize & Giriş Şartları (Türkiye'den Gidiş) -->
+        <div id="tab-visa" class="tab-pane" role="tabpanel">
+          <div id="modal-visa-content"></div>
+        </div>
+
+        <!-- Sekme 3: Gezilecek Yerler (Fotoğraflı) -->
+        <div id="tab-attractions" class="tab-pane" role="tabpanel">
+          <div id="modal-attractions-list" class="item-list-grid"></div>
+        </div>
+
+        <!-- Sekme 4: Yöresel Lezzetler -->
+        <div id="tab-cuisine" class="tab-pane" role="tabpanel">
+          <div id="modal-cuisine-list" class="item-list-grid"></div>
+        </div>
+
+        <!-- Sekme 5: Sesli Konuşma Rehberi (Web Speech API) -->
+        <div id="tab-phrasebook" class="tab-pane" role="tabpanel">
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 18px; font-weight: 500;">
+            Yerel halkla kolayca iletişim kurabilmeniz için pratik kalıplar. Ses butonuna (🔊) tıklayarak yerel telaffuzunu anında dinleyebilirsiniz.
+          </p>
+          <div id="modal-phrasebook-list"></div>
+        </div>
+
+        <!-- Sekme 6: Bavul Listesi -->
+        <div id="tab-packing" class="tab-pane" role="tabpanel">
+          <div class="checklist-progress-wrap">
+            <div style="display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 800;">
+              <span>Bavul Hazırlık Durumu</span>
+              <span id="checklist-progress-text" style="color: var(--accent-primary);">0%</span>
+            </div>
+            <div class="checklist-progress-bar">
+              <div id="checklist-progress-fill" class="checklist-progress-fill"></div>
+            </div>
+          </div>
+          <div id="modal-packing-list" class="checklist-items-wrap"></div>
+        </div>
+
+        <!-- Sekme 7: İnteraktif Bütçe Hesaplayıcı -->
+        <div id="tab-calculator" class="tab-pane" role="tabpanel">
+          <div class="calc-container">
+            <div class="calc-control-group">
+              <label class="calc-label" for="calc-days-slider">
+                Seyahat Süresi: <span id="calc-days-val" style="color: var(--accent-primary); font-weight: 900;">7</span> Gün
+              </label>
+              <input type="range" id="calc-days-slider" class="calc-days-slider" min="1" max="30" value="7">
+            </div>
+
+            <div class="calc-control-group">
+              <span class="calc-label">Seyahat Tarzı ve Konfor Seviyesi:</span>
+              <div class="calc-style-selector">
+                <button type="button" class="style-btn" data-style="backpacker">🎒 Sırt Çantalı</button>
+                <button type="button" class="style-btn active" data-style="explorer">🧭 Gezgin / Standart</button>
+                <button type="button" class="style-btn" data-style="luxury">💎 Konfor & Lüks</button>
+              </div>
+            </div>
+
+            <div class="calc-result-box">
+              <div style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">
+                Tahmini Toplam Seyahat Bütçesi
+              </div>
+              <div id="calc-total-usd" class="calc-result-number">$910 USD</div>
+              <div id="calc-total-local" class="calc-result-sub">Yaklaşık ₺34.125 TL</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Alt Çubuğu -->
+      <div class="modal-footer">
+        <button id="modal-share-btn" class="modal-share-btn">
+          <span>🔗 Rotayı Paylaş</span>
+        </button>
+        <button id="modal-add-itinerary-btn" class="modal-add-itinerary-btn">
+          <span>➕ Gezi Planıma Ekle</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kayar Gezi Planlayıcı Çekmecesi (Itinerary Drawer) -->
+  <div id="itinerary-backdrop" class="drawer-backdrop" aria-hidden="true">
+    <aside id="itinerary-drawer" class="itinerary-drawer" aria-label="Kişisel Gezi Planı">
+      <div class="drawer-header">
+        <h2 class="drawer-title">
+          <span>🎒 Kişisel Seyahat Planım</span>
+        </h2>
+        <button id="drawer-close-btn" class="drawer-close-btn" aria-label="Çekmeceyi kapat">✕</button>
+      </div>
+
+      <div id="drawer-body" class="drawer-body">
+        <!-- Gezi maddeleri app.js ile eklenir -->
+      </div>
+
+      <div class="drawer-footer">
+        <div class="itinerary-summary-row">
+          <span>Planlanan Rota Sayısı:</span>
+          <span id="itinerary-summary-count" style="font-weight: 800;">0</span>
+        </div>
+        <div class="itinerary-summary-row">
+          <span>Toplam Seyahat Süresi:</span>
+          <span id="itinerary-summary-days" style="font-weight: 800;">0 Gün</span>
+        </div>
+        <div class="itinerary-summary-row total">
+          <span>Tahmini Toplam Maliyet:</span>
+          <span id="itinerary-summary-budget" style="color: var(--accent-primary);">$0 USD</span>
+        </div>
+
+        <div class="drawer-actions-row">
+          <button id="export-trip-btn" class="export-trip-btn">📋 Seyahat Planını Paylaş / Kopyala</button>
+          <button id="clear-itinerary-btn" class="clear-itinerary-btn" title="Tüm planı sıfırla">Temizle</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Yüzen Bildirimler (Toasts) -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Sayfa Altı (Footer) -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <p><strong>AETHERIA Travel Technologies</strong> • Modern HTML5, CSS3 ve Saf Vanilla JS (Framework-free)</p>
+        <p style="font-size: 0.82rem; margin-top: 4px;">Sıfır bağımlılık • 60fps akıcı animasyonlar • Vize & Pasaport bilgi desteği</p>
+      </div>
+      <div class="footer-badges">
+        <span class="footer-badge">Açık Tema</span>
+        <span class="footer-badge">Vize Rehberi</span>
+        <span class="footer-badge">Sesli Sözlük</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modüler JavaScript Mimarisi (Doğrudan Yerel Dosya Destekli, CORS Hatasız) -->
+  <script src="js/data.js"></script>
+  <script src="js/modules/state.js"></script>
+  <script src="js/modules/ui.js"></script>
+  <script src="js/modules/filters.js"></script>
+  <script src="js/modules/modal.js"></script>
+  <script src="js/modules/itinerary.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
